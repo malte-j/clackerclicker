@@ -1,22 +1,89 @@
+console.log('Clacker Clicker v0.0.1')
+
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var fs = require('fs');
 
+//Database for storing the click count
+console.log('loading database...');
+var data = fs.readFileSync(__dirname + '/db.json');
+var db = JSON.parse(data);
+console.log(db);
+
+var users = 0;
+
+//write clicks to file every minute
+setInterval(saveDataToFile, 60000);
+
+
+
+//server index.html
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/public/index.html');
+	res.sendFile(__dirname + '/public/index.html');
 });
 
 io.on('connection', function(socket){
   console.log('a user connected');
-  socket.on('chat message', function(msg){
-    console.log('message: ' + msg);
-	io.emit('chat message', msg);
-  });
+	//send click count to users
+	io.emit('clicks', db.clicks); 
+
+	//
+	users++;
+	io.emit('users', users);
+	//click event incoming, send click count to all
+  socket.on('click', function(){
+    console.log('click');
+		db.clicks++;
+		io.emit('clicks', db.clicks);
+	});
+	
   socket.on('disconnect', function(){
     console.log('user disconnected');
+		users--;
+		io.emit('users', users);
   });
 });
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+http.listen(8080, function(){
+  console.log('listening on port 8080');
 });
+
+//
+function saveDataToFile(sync){
+	console.log('saving data to file');
+	var data = JSON.stringify(db, null, 2);
+	if(sync){
+		console.log('saving data synchronous');
+		fs.writeFileSync(__dirname + '/db.json', data);
+		console.log('data saved succefully');
+	} else {
+		fs.writeFile(__dirname + '/db.json', data, function(err){
+		if(err)
+			console.log(err);
+		else
+			console.log('data saved succesfully')
+	});
+	}
+	
+	
+}
+
+//exit handler
+process.stdin.resume();//so the program will not close instantly
+
+function exitHandler(options, err) {
+    if (options.cleanup) console.log('clean');
+    if (err) console.log(err.stack);
+    if (options.exit){
+			saveDataToFile(true);
+			process.exit();
+		};
+}
+
+//do something when app is closing
+process.on('exit', exitHandler.bind(null,{cleanup:true}));
+//catches ctrl+c event
+process.on('SIGINT', exitHandler.bind(null, {exit:true}));
+//catches uncaught exceptions
+process.on('uncaughtException', exitHandler.bind(null, {exit:true}));

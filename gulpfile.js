@@ -2,20 +2,20 @@ var gulp = require('gulp');
 var pug = require('gulp-pug');
 var sass = require('gulp-sass');
 
-gulp.task('html', function(){
+gulp.task('html', ['css'], function(){
     return gulp.src('src/*.pug')
     .pipe(pug())
     .pipe(gulp.dest('public'))
 });
 gulp.task('css', function(){
-    return gulp.src('src/*.sass')
-    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-    .pipe(gulp.dest('public'))
+    return gulp.src('src/css/screen.sass')
+    .pipe(sass({outputStyle: 'compressed'}))
+    .pipe(gulp.dest('src/build'))
 });
 
 gulp.task('watch', function(){
-    gulp.watch('src/*.pug', ['html']);
-    gulp.watch('src/*.sass', ['css']);
+    gulp.watch('src/**/*.pug', ['html']);
+    gulp.watch('src/**/*.sass', ['css']);
 });
 
-gulp.task('default', ['html', 'css']);
+gulp.task('default', ['html']);

@@ -2,5 +2,14 @@ doctype html
 html
 	head
 		title ClickerClacker
+		style
+			include build/screen.css
+	body#app
+		button#btn click
+		p#clickCounter
+		p#userCounter
 		
-	body
+		script(src="http://localhost:8080/socket.io/socket.io.js")
+		script(src="https://unpkg.com/vue")
+		script
+			include js/app.js
