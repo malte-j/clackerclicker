@@ -1,11 +1,11 @@
-var socket = io('http://localhost:8080/');
+var socket = io('http://192.168.178.59:8080/');
 window.onload = start;
 
 function start(){
 	var btn = document.getElementById("btn");
 	var keySvg = document.getElementById('key');
-	var clickCounter = document.getElementById("clickCounter");
 	var userCounter = document.getElementById("userCounter");
+	
 	keySvg.addEventListener("load", function () {
 		var svgDoc = keySvg.contentDocument;
 		var text = svgDoc.getElementById("text");
@@ -16,7 +16,6 @@ function start(){
 		console.log("click");
 	};
 	socket.on('clicks', function(count){
-		clickCounter.innerText = count + " clicks";
 		text.innerHTML = count; 
 
 		console.log('clicks event: ' + count + " clicks");

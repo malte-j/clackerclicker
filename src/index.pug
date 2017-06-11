@@ -8,11 +8,11 @@ html
 		link
 	body#app
 		h1 Clacker Clicker
-		include media/key.svg
-		p#clickCounter
 		p#userCounter
+		include media/key.svg
 		
-		script(src="http://localhost:8080/socket.io/socket.io.js")
+		
+		script(src="http://192.168.178.59:8080/socket.io/socket.io.js")
 		script(src="https://unpkg.com/vue")
 		script
 			include js/app.js
