@@ -1,16 +1,19 @@
 doctype html
 html
 	head
+		meta(content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport')
 		title ClickerClacker
+		
 		link(href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet")
 		style
 			include build/screen.css
 		link
-	body#app
-		h1 Clacker Clicker
-		p#userCounter
-		include media/key.svg
-		
+	body
+		#header
+			h1 Clacker Clicker
+			p#userCounter
+		#app
+			include media/key.svg
 		
 		script(src="http://192.168.178.59:8080/socket.io/socket.io.js")
 		script(src="https://unpkg.com/vue")
