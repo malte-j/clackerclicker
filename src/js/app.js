@@ -1,20 +1,30 @@
 var socket = io('http://localhost:8080/');
-var app = {
-    el: '#app',
-    data: {
+window.onload = start;
 
-    }
-}
-var btn = document.getElementById("btn");
-var clickCounter = document.getElementById("clickCounter");
-var userCounter = document.getElementById("userCounter");
+function start(){
+	var btn = document.getElementById("btn");
+	var keySvg = document.getElementById('key');
+	var clickCounter = document.getElementById("clickCounter");
+	var userCounter = document.getElementById("userCounter");
+	keySvg.addEventListener("load", function () {
+		var svgDoc = keySvg.contentDocument;
+		var text = svgDoc.getElementById("text");
+	});
 
-btn.onclick = function(){
-    socket.emit('click');
+	keySvg.onclick = function(){
+		socket.emit('click');
+		console.log("click");
+	};
+	socket.on('clicks', function(count){
+		clickCounter.innerText = count + " clicks";
+		text.innerHTML = count; 
+
+		console.log('clicks event: ' + count + " clicks");
+	});
+	socket.on('users', function(count){
+		let users = count < 2 ? " user " : " users ";
+		userCounter.innerText = count + users + "online";
+
+		console.log("user event: " + count + users + "online" );
+	});
 };
-socket.on('clicks', function(count){
-    clickCounter.innerText = count + " clicks";
-});
-socket.on('users', function(count){
-    userCounter.innerText = count + " users online";
-});

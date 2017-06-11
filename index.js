@@ -16,9 +16,7 @@ var users = 0;
 //write clicks to file every minute
 setInterval(saveDataToFile, 60000);
 
-
-
-//server index.html
+//serves index.html
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/public/index.html');
 });
@@ -49,9 +47,10 @@ http.listen(8080, function(){
   console.log('listening on port 8080');
 });
 
-//
-function saveDataToFile(sync){
+//Saves data to file, in sync or async mode
+function saveDataToFile (sync) {
 	console.log('saving data to file');
+
 	var data = JSON.stringify(db, null, 2);
 	if(sync){
 		console.log('saving data synchronous');
@@ -65,8 +64,6 @@ function saveDataToFile(sync){
 			console.log('data saved succesfully')
 	});
 	}
-	
-	
 }
 
 //exit handler
@@ -81,9 +78,6 @@ function exitHandler(options, err) {
 		};
 }
 
-//do something when app is closing
-process.on('exit', exitHandler.bind(null,{cleanup:true}));
-//catches ctrl+c event
-process.on('SIGINT', exitHandler.bind(null, {exit:true}));
-//catches uncaught exceptions
-process.on('uncaughtException', exitHandler.bind(null, {exit:true}));
+process.on('exit', exitHandler.bind(null,{cleanup:true})); //do something when app is closing
+process.on('SIGINT', exitHandler.bind(null, {exit:true})); //catches ctrl+c event
+process.on('uncaughtException', exitHandler.bind(null, {exit:true})); //catches uncaught exceptions
