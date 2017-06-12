@@ -13,8 +13,8 @@ console.log(db);
 
 var users = 0;
 
-//write clicks to file every minute
-setInterval(saveDataToFile, 60000);
+//write clicks to file every hour
+setInterval(saveDataToFile, 3600000);
 
 //serves index.html
 app.get('/', function(req, res){
@@ -24,9 +24,7 @@ app.get('/', function(req, res){
 io.on('connection', function(socket){
   console.log('a user connected');
 	//send click count to users
-	io.emit('clicks', db.clicks); 
-
-	//
+	io.emit('clicks', db.clicks);
 	users++;
 	io.emit('users', users);
 	//click event incoming, send click count to all
