@@ -1,21 +1,27 @@
-@import 'skeleton'
 *
 	box-sizing: border-box
 body
+	font-family: "Oswald", sans-serif
 	margin: 0
 	min-height: 100vh
 	user-select: none
 	-webkit-tap-highlight-color: rgba(255, 255, 255, 0)
+#app
+	display: flex
+	flex-direction: column
+	width: 100vw
+	height: 100vh
+	align-items: center
+	justify-content: space-between
 #header
 	text-align: center
+	h1
+		font-size: calc(2rem + 4vw)
+		margin: 0
 #userCounter
 	font-size: 40px
 	margin: 0
-#app
-	display: flex
-	align-items: center
-	justify-content: center
-	min-height: calc(100vh - 144px)
+
 #key
 	width: 70vmin;
 #key:active

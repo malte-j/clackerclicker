@@ -2,19 +2,22 @@ doctype html
 html
 	head
 		meta(content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport')
-		title ClickerClacker
+		title ClackerClicker
 		
 		link(href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet")
+		link(href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheets")
 		style
 			include build/screen.css
-		link
-	body
-		#header
-			h1 Clacker Clicker
-			p#userCounter
-		#app
-			include media/key.svg
 		
+	body
+		#app
+			#header
+				h1 Clacker Clicker
+				p#userCounter
+			#center
+				include media/key.svg
+			#footer
+				p &copy 2017 Malte Janßen
 		script
 			include js/socket.io.js
 		script
