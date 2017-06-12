@@ -1,4 +1,4 @@
-var socket = io('http://192.168.178.59:8080/');
+var socket = io();
 window.onload = start;
 
 function start(){
