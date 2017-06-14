@@ -12,7 +12,7 @@ function start(){
 	});
 
 	keySvg.onclick = function(){
-		socket.emit('click');
+		socket.emit('click', );
 		console.log("click");
 	};
 	socket.on('clicks', function(count){
