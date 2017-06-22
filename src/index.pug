@@ -9,13 +9,16 @@ html
 		style
 			include build/screen.css
 		
-	body
-		#app
+	body#app
+		#main
 			#header
 				h1 Clacker Clicker
-				p#userCounter
-			#center
-				include media/key.svg
+			include media/key.svg
+			p#userCounter
+			#footer
+				p &copy 2017 Malte Janßen
+		#side
+			h1 Shop
 			#store
 				#secretary
 					p.name Sekretärin
@@ -23,8 +26,6 @@ html
 				#worker
 					p.name Arbeiter
 					p.count 0
-			#footer
-				p &copy 2017 Malte Janßen
 		script
 			include js/socket.io.js
 		script
