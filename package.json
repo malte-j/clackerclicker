@@ -14,8 +14,11 @@
   "dependencies": {
     "express": "^4.15.3",
     "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.4",
     "gulp-pug": "^3.3.0",
     "gulp-sass": "^3.1.0",
+    "jshint": "^2.9.5",
+    "jshint-stylish": "^2.2.1",
     "socket.io": "^2.0.2"
   }
 }

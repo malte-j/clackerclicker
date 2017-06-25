@@ -2,8 +2,7 @@ var socket = io();
 window.onload = function(){
 	alert('hi');	
 	window.document.body.onload = function(){
-		alert('hi'); 
-	};
+		alert('hi'); }
 };
 var clickBuffer = 0;
 var clacks = 0;
@@ -47,7 +46,7 @@ function start(){
 		if(clickBuffer > 0){
 			socket.emit('click', {amount: clickBuffer})
 			clickBuffer = 0;
-		};
+		}
 	}
 	/*
 	socket.on('users', function(count){

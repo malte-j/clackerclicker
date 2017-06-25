@@ -9,24 +9,29 @@ html
 		style
 			include build/screen.css
 		
-	body#app
-		#main
-			#header
-				h1 Clacker Clicker
-			include media/key.svg
-			p#userCounter
-			#footer
-				p &copy 2017 Malte Janßen
-		#side
-			h1 Shop
-			#store
-				#secretary
-					p.name Sekretärin
-					p.count 0
-				#worker
-					p.name Arbeiter
-					p.count 0
+	body
+		#header
+			h1 Clacker Clicker 2.0
+		#app
+			#main
+				object(id="key"  data="key.svg" type="image/svg+xml") No SVG support
+				#clicks {{ clicks }}
+				#clacks {{ clacks }}
+			#side
+				h1 Shop
+				#store
+					#secretary
+						p.price 50
+						p.name Sekretärin
+						p.count 0
+					#worker
+						p.price 100
+						p.name Arbeiter
+						p.count 0
+		#footer
+			p &copy 2017 Malte Janßen
 		script
 			include js/socket.io.js
+		script(src="vue.js")
 		script
 			include js/app.js

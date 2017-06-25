@@ -11,36 +11,49 @@ var data = fs.readFileSync(__dirname + '/db.json');
 var db = JSON.parse(data);
 console.log(db);
 
+var lastClicks = db.clicks;
+
 var users = 0;
 
 //write clicks to file every hour
 setInterval(saveDataToFile, 3600000);
 
+//send click count to clients
+setInterval(emitClicks, 100);
+
 //serves index.html
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/public/index.html');
-	//app.use(express.static('public'));
+	app.use(express.static('public'));
 });
 
+
 io.on('connection', function(socket){
-  console.log('a user connected');
+	users++;
+  console.log('user connected - ' + users + " users online");
 	//send click count to users
 	io.emit('clicks', db.clicks);
-	users++;
-	io.emit('users', users);
-	//click event incoming, send click count to all
-  socket.on('click', function(){
-    console.log('click');
-		db.clicks++;
-		io.emit('clicks', db.clicks);
+
+  socket.on('click', function(data){
+    console.log('click event:');
+		console.log(data);
+		db.clicks += data.amount;
+		// console.log(db.clicks);
 	});
 	
   socket.on('disconnect', function(){
-    console.log('user disconnected');
 		users--;
-		io.emit('users', users);
+    console.log('user disconnected - ' + users + " users online");
   });
 });
+
+function emitClicks () {
+	if(lastClicks < db.clicks){
+		io.emit('clicks', db.clicks);
+		lastClicks = db.clicks;
+	}
+}
+
 
 http.listen(8080, function(){
   console.log('listening on port 8080');
